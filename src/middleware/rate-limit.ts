@@ -50,7 +50,7 @@ type RateLimitRule = {
   silent?: boolean;
 };
 
-async function getParsedBody(c: Context<HonoEnv>): Promise<Record<string, string>> {
+export async function getParsedBody(c: Context<HonoEnv>): Promise<Record<string, string>> {
   const cached = c.get("parsedBody");
   if (cached !== undefined) return cached;
   const formData = await c.req.raw.clone().formData();

@@ -4,6 +4,7 @@ import { validateContinueUrl } from "../lib/continue";
 import {
   checkAndConsumeRegisterEmailRateLimit,
   forgotPasswordRateLimit,
+  getParsedBody,
   loginRateLimit,
   registerRateLimit,
   resetPasswordRateLimit,
@@ -41,7 +42,7 @@ app.get("/login", (c) => {
 // POST /login
 app.post("/login", loginRateLimit, async (c) => {
   const trustedOrigins = getTrustedOrigins(c.env);
-  const body = c.get("parsedBody") ?? {};
+  const body = await getParsedBody(c);
   const continueUrl = validateContinueUrl(body.continue, c.env.BETTER_AUTH_URL, trustedOrigins);
 
   if (c.get("rateLimitExceeded")) {
@@ -95,7 +96,7 @@ app.get("/register", (c) => {
 // POST /register
 app.post("/register", registerRateLimit, async (c) => {
   const trustedOrigins = getTrustedOrigins(c.env);
-  const body = c.get("parsedBody") ?? {};
+  const body = await getParsedBody(c);
   const continueUrl = validateContinueUrl(body.continue, c.env.BETTER_AUTH_URL, trustedOrigins);
 
   if (c.get("rateLimitExceeded")) {
@@ -198,7 +199,7 @@ app.post("/forgot-password", forgotPasswordRateLimit, async (c) => {
     return c.redirect("/forgot-password/sent");
   }
 
-  const body = c.get("parsedBody") ?? {};
+  const body = await getParsedBody(c);
   const email = body.email ?? "";
   const auth = createAuth(c.env);
 
@@ -233,7 +234,7 @@ app.get("/reset-password", (c) => {
 
 // POST /reset-password
 app.post("/reset-password", resetPasswordRateLimit, async (c) => {
-  const body = c.get("parsedBody") ?? {};
+  const body = await getParsedBody(c);
 
   if (c.get("rateLimitExceeded")) {
     return c.html(
