@@ -45,6 +45,7 @@ export function createAuth(env: Env) {
 
     emailVerification: {
       expiresIn: 60 * 60 * 3, // 3時間
+      callbackURL: "/verify-email/done",
       sendVerificationEmail: async ({ user, url }) => {
         const { subject, html, text } = verifyEmailTemplate(user.name, url);
         await sendEmail(env, user.email, subject, html, text);

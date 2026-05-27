@@ -1,5 +1,5 @@
 name = "paritto-auth"
-main = "src/index.ts"
+main = "src/index.tsx"
 compatibility_date = "2026-05-27"
 compatibility_flags = ["nodejs_compat"]
 

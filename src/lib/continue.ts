@@ -1,3 +1,16 @@
-// TODO: continue パラメータの検証ロジック（オープンリダイレクト対策）
-// auth.paritto.dev 内部パス or 登録済み OAuth クライアントの redirect_uri ドメインのみ許可
-export {};
+export function validateContinueUrl(
+  continueUrl: string | undefined | null,
+  betterAuthUrl: string,
+  trustedOrigins: string[]
+): string | null {
+  if (!continueUrl) return null;
+  try {
+    const url = new URL(continueUrl, betterAuthUrl);
+    const authOrigin = new URL(betterAuthUrl).origin;
+    if (url.origin === authOrigin) return url.toString();
+    if (trustedOrigins.includes(url.origin)) return url.toString();
+    return null;
+  } catch {
+    return null;
+  }
+}

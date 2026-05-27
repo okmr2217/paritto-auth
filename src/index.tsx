@@ -2,7 +2,9 @@ import { Hono } from "hono";
 import type { Auth } from "./auth";
 import { createAuth } from "./auth";
 import { authorizeRateLimit, tokenRateLimit } from "./middleware/rate-limit";
+import { pagesRouter } from "./routes/pages";
 import type { Env } from "./types/env";
+import { ErrorView } from "./views/error";
 
 type Variables = {
   auth: Auth;
@@ -39,6 +41,16 @@ app.post("/oauth2/token", tokenRateLimit, async (c) => {
 app.get("/health", async (c) => {
   // TODO: DB 疎通確認を追加する
   return c.json({ status: "ok" });
+});
+
+app.route("/", pagesRouter);
+
+app.onError((err, c) => {
+  const accept = c.req.header("Accept") ?? "";
+  if (accept.includes("text/html")) {
+    return c.html(<ErrorView message={err.message} />, 500);
+  }
+  return c.json({ error: "Internal Server Error" }, 500);
 });
 
 export default {

@@ -1,5 +1,64 @@
 import type { FC } from "hono/jsx";
+import { Layout } from "./layout";
 
-export const RegisterPage: FC = () => {
-  return <div>TODO: 登録フォーム</div>;
+type Props = {
+  error?: string | undefined;
+  email?: string | undefined;
+  continue?: string | undefined;
+};
+
+export const Register: FC<Props> = (props) => {
+  const continueParam = props.continue ? `?continue=${encodeURIComponent(props.continue)}` : "";
+  return (
+    <Layout title="アカウント作成">
+      <h1 class="text-xl font-bold mb-6 text-center">アカウント作成</h1>
+      {props.error && (
+        <div class="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
+          {props.error}
+        </div>
+      )}
+      <form method="post" action="/register">
+        {props.continue && <input type="hidden" name="continue" value={props.continue} />}
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+            メールアドレス
+          </label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={props.email ?? ""}
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
+            autocomplete="email"
+            required
+          />
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+            パスワード
+          </label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="8文字以上"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full py-2 px-4 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+        >
+          登録
+        </button>
+      </form>
+      <div class="mt-5 text-center text-sm text-gray-500">
+        <a href={`/login${continueParam}`} class="hover:text-black transition-colors">
+          すでにアカウントをお持ちの方
+        </a>
+      </div>
+    </Layout>
+  );
 };
