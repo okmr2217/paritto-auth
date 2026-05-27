@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { createAuth } from "../auth";
 import { validateContinueUrl } from "../lib/continue";
 import {
+  checkAndConsumeRegisterEmailRateLimit,
   forgotPasswordRateLimit,
   loginRateLimit,
   registerRateLimit,
@@ -118,6 +119,18 @@ app.post("/register", registerRateLimit, async (c) => {
         email={email}
         continue={continueUrl ?? undefined}
       />
+    );
+  }
+
+  const emailAllowed = await checkAndConsumeRegisterEmailRateLimit(c.env.RATE_LIMIT, email);
+  if (!emailAllowed) {
+    return c.html(
+      <Register
+        error="しばらく時間をおいてから再度お試しください"
+        email={email}
+        continue={continueUrl ?? undefined}
+      />,
+      429
     );
   }
 

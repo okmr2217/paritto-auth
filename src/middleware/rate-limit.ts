@@ -93,7 +93,10 @@ export function createRateLimitMiddleware(rules: RateLimitRule[]): MiddlewareHan
 
 export const loginRateLimit = createRateLimitMiddleware([
   {
-    key: async (c) => `ip:login:${c.req.header("CF-Connecting-IP") ?? "unknown"}`,
+    key: async (c) => {
+      const ip = c.req.header("CF-Connecting-IP");
+      return ip ? `ip:login:${ip}` : null;
+    },
     limit: (env) => parseInt(env.RATE_LIMIT_LOGIN_PER_MIN, 10),
     windowSeconds: 60,
   },
@@ -110,24 +113,29 @@ export const loginRateLimit = createRateLimitMiddleware([
 
 export const registerRateLimit = createRateLimitMiddleware([
   {
-    key: async (c) => `ip:register:${c.req.header("CF-Connecting-IP") ?? "unknown"}`,
+    key: async (c) => {
+      const ip = c.req.header("CF-Connecting-IP");
+      return ip ? `ip:register:${ip}` : null;
+    },
     limit: (env) => parseInt(env.RATE_LIMIT_REGISTER_PER_HOUR, 10),
     windowSeconds: 3600,
   },
-  {
-    key: async (c) => {
-      const body = await getParsedBody(c);
-      const email = body.email;
-      return email ? `email:register:${email}` : null;
-    },
-    limit: 1,
-    windowSeconds: 86400,
-  },
 ]);
+
+export async function checkAndConsumeRegisterEmailRateLimit(
+  kv: KVNamespace,
+  email: string
+): Promise<boolean> {
+  const result = await rateLimit(kv, `email:register:${email}`, 3, 86400);
+  return result.allowed;
+}
 
 export const forgotPasswordRateLimit = createRateLimitMiddleware([
   {
-    key: async (c) => `ip:forgot-password:${c.req.header("CF-Connecting-IP") ?? "unknown"}`,
+    key: async (c) => {
+      const ip = c.req.header("CF-Connecting-IP");
+      return ip ? `ip:forgot-password:${ip}` : null;
+    },
     limit: (env) => parseInt(env.RATE_LIMIT_PASSWORD_RESET_PER_HOUR, 10),
     windowSeconds: 3600,
   },
@@ -145,7 +153,10 @@ export const forgotPasswordRateLimit = createRateLimitMiddleware([
 
 export const resetPasswordRateLimit = createRateLimitMiddleware([
   {
-    key: async (c) => `ip:reset-password:${c.req.header("CF-Connecting-IP") ?? "unknown"}`,
+    key: async (c) => {
+      const ip = c.req.header("CF-Connecting-IP");
+      return ip ? `ip:reset-password:${ip}` : null;
+    },
     limit: 5,
     windowSeconds: 900,
   },
@@ -166,7 +177,10 @@ export const verifyEmailResendRateLimit = createRateLimitMiddleware([
 
 export const tokenRateLimit = createRateLimitMiddleware([
   {
-    key: async (c) => `ip:token:${c.req.header("CF-Connecting-IP") ?? "unknown"}`,
+    key: async (c) => {
+      const ip = c.req.header("CF-Connecting-IP");
+      return ip ? `ip:token:${ip}` : null;
+    },
     limit: (env) => parseInt(env.RATE_LIMIT_TOKEN_PER_MIN, 10),
     windowSeconds: 60,
     isApi: true,
@@ -185,7 +199,10 @@ export const tokenRateLimit = createRateLimitMiddleware([
 
 export const authorizeRateLimit = createRateLimitMiddleware([
   {
-    key: async (c) => `ip:authorize:${c.req.header("CF-Connecting-IP") ?? "unknown"}`,
+    key: async (c) => {
+      const ip = c.req.header("CF-Connecting-IP");
+      return ip ? `ip:authorize:${ip}` : null;
+    },
     limit: 60,
     windowSeconds: 60,
     isApi: true,
