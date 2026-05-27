@@ -5,6 +5,9 @@ import { jwt } from "better-auth/plugins";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "./db/schema";
+import { sendEmail } from "./lib/email";
+import { resetPasswordTemplate } from "./lib/email-templates/reset-password";
+import { verifyEmailTemplate } from "./lib/email-templates/verify-email";
 import type { Env } from "./types/env";
 
 export function createAuth(env: Env) {
@@ -34,12 +37,17 @@ export function createAuth(env: Env) {
       enabled: true,
       requireEmailVerification: true,
       minPasswordLength: 8,
+      sendResetPassword: async ({ user, url }) => {
+        const { subject, html, text } = resetPasswordTemplate(user.name, url);
+        await sendEmail(env, user.email, subject, html, text);
+      },
     },
 
     emailVerification: {
+      expiresIn: 60 * 60 * 3, // 3時間
       sendVerificationEmail: async ({ user, url }) => {
-        // TODO: src/lib/email.ts の sendVerificationEmail と繋ぐ
-        console.log("sendVerificationEmail", user.email, url);
+        const { subject, html, text } = verifyEmailTemplate(user.name, url);
+        await sendEmail(env, user.email, subject, html, text);
       },
     },
 
