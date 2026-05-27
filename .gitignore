@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.wrangler/
+drizzle/*.sql
+.env
+.env.local
+*.local
+
+# Private docs
+.docs/

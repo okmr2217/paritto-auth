@@ -1,0 +1,33 @@
+{
+  "name": "paritto-auth",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "lint": "biome lint ./src",
+    "format": "biome format --write ./src",
+    "check": "biome check ./src",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-auth": "~1.6.11",
+    "@better-auth/oauth-provider": "~1.6.11",
+    "hono": "~4.12.23",
+    "drizzle-orm": "~0.45.2",
+    "pg": "~8.21.0",
+    "resend": "~6.12.4",
+    "jose": "~6.2.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.15",
+    "@cloudflare/workers-types": "~4.20260527.1",
+    "@types/pg": "~8.20.0",
+    "drizzle-kit": "~0.31.10",
+    "typescript": "~6.0.3",
+    "wrangler": "~4.94.0"
+  }
+}
