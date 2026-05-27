@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import type { Auth } from "./auth";
 import { createAuth } from "./auth";
 import { authorizeRateLimit, tokenRateLimit } from "./middleware/rate-limit";
+import { health } from "./routes/health";
 import { pagesRouter } from "./routes/pages";
 import type { Env } from "./types/env";
 import { ErrorView } from "./views/error";
@@ -38,10 +39,7 @@ app.post("/oauth2/token", tokenRateLimit, async (c) => {
   return auth.handler(c.req.raw);
 });
 
-app.get("/health", async (c) => {
-  // TODO: DB 疎通確認を追加する
-  return c.json({ status: "ok" });
-});
+app.route("/", health);
 
 app.route("/", pagesRouter);
 
