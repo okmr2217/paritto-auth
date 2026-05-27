@@ -38,6 +38,6 @@
     }
   },
   "files": {
-    "includes": ["**", "!node_modules/**", "!dist/**", "!drizzle/**", "!.wrangler/**"]
+    "includes": ["**", "!node_modules", "!dist", "!drizzle", "!.wrangler", "!.docs"]
   }
 }
