@@ -14,13 +14,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "better-auth": "~1.6.11",
     "@better-auth/oauth-provider": "~1.6.11",
-    "hono": "~4.12.23",
+    "better-auth": "~1.6.11",
     "drizzle-orm": "~0.45.2",
+    "hono": "~4.12.23",
+    "jose": "~6.2.3",
     "pg": "~8.21.0",
-    "resend": "~6.12.4",
-    "jose": "~6.2.3"
+    "postgres": "^3.4.9",
+    "resend": "~6.12.4"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.15",

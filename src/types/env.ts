@@ -1,5 +1,3 @@
-import type { Db } from "@/db";
-
 export type Env = {
   // Hyperdrive
   HYPERDRIVE: Hyperdrive;
@@ -25,8 +23,4 @@ export type Env = {
   BETTER_AUTH_SECRET: string;
   RESEND_API_KEY: string;
   RESEND_FROM_EMAIL: string;
-};
-
-export type Variables = {
-  db: Db;
 };

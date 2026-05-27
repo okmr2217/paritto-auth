@@ -1,14 +1,12 @@
-import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import type { Env } from "@/types/env";
+import * as schema from "./schema";
 
 export function createDb(env: Env) {
-  const pool = new Pool({
-    connectionString: env.HYPERDRIVE.connectionString,
-    max: 5,
-  });
-  const db = drizzle(pool);
-  return { db, pool };
+  const sql = postgres(env.HYPERDRIVE.connectionString, { max: 1 });
+  const db = drizzle(sql, { schema });
+  return { db, sql };
 }
 
 export type Db = ReturnType<typeof createDb>["db"];

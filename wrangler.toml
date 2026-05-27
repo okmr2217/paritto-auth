@@ -4,7 +4,7 @@ compatibility_date = "2026-05-27"
 compatibility_flags = ["nodejs_compat"]
 
 workers_dev = false
-route = { pattern = "auth.paritto.dev/*", custom_domain = true }
+route = { pattern = "auth.paritto.dev/*", zone_name = "paritto.dev" }
 
 # ====================
 # Hyperdrive (DB プーリング)

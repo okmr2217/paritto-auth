@@ -8,3 +8,7 @@ drizzle/*.sql
 
 # Private docs
 .docs/
+
+# Local development variables
+.dev.vars
+.env

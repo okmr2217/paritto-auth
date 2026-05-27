@@ -1,5 +1,8 @@
 import { Hono } from "hono";
-import type { Env, Variables } from "@/types/env";
+import type { Auth } from "@/auth";
+import type { Env } from "@/types/env";
+
+type Variables = { auth: Auth };
 
 const health = new Hono<{ Bindings: Env; Variables: Variables }>();
 
