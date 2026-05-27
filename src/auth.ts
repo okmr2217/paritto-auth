@@ -89,6 +89,11 @@ export function createAuth(env: Env) {
       oauthProvider({
         loginPage: "/login",
         consentPage: "/consent",
+        validAudiences: ["yarukoto", "peaklog", "tukekan"],
+        customAccessTokenClaims: async ({ user }) => ({
+          email: user?.email,
+          name: user?.name,
+        }),
       }),
     ],
   });

@@ -137,7 +137,7 @@ app.post("/register", registerRateLimit, async (c) => {
 
   const auth = createAuth(c.env);
   const res = await auth.api.signUpEmail({
-    body: { email, password, name: email },
+    body: { email, password, name: email, callbackURL: "/verify-email/done" },
     asResponse: true,
   });
 
