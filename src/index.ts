@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import type { Auth } from "./auth";
 import { createAuth } from "./auth";
+import { authorizeRateLimit, tokenRateLimit } from "./middleware/rate-limit";
 import type { Env } from "./types/env";
 
 type Variables = {
@@ -21,6 +22,16 @@ app.all("/api/auth/*", async (c) => {
 });
 
 app.all("/.well-known/*", async (c) => {
+  const auth = c.get("auth");
+  return auth.handler(c.req.raw);
+});
+
+app.get("/oauth2/authorize", authorizeRateLimit, async (c) => {
+  const auth = c.get("auth");
+  return auth.handler(c.req.raw);
+});
+
+app.post("/oauth2/token", tokenRateLimit, async (c) => {
   const auth = c.get("auth");
   return auth.handler(c.req.raw);
 });
