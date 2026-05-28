@@ -1,8 +1,9 @@
 import { Hono } from "hono";
 import type { Auth } from "./auth";
 import { createAuth } from "./auth";
-import { authorizeRateLimit, tokenRateLimit } from "./middleware/rate-limit";
 import { health } from "./routes/health";
+import { authRouter } from "./routes/auth";
+import { oauthRouter } from "./routes/oauth";
 import { pagesRouter } from "./routes/pages";
 import type { Env } from "./types/env";
 import { ErrorView } from "./views/error";
@@ -19,25 +20,8 @@ app.use("*", async (c, next) => {
   await next();
 });
 
-app.all("/api/auth/*", async (c) => {
-  const auth = c.get("auth");
-  return auth.handler(c.req.raw);
-});
-
-app.all("/.well-known/*", async (c) => {
-  const auth = c.get("auth");
-  return auth.handler(c.req.raw);
-});
-
-app.get("/oauth2/authorize", authorizeRateLimit, async (c) => {
-  const auth = c.get("auth");
-  return auth.handler(c.req.raw);
-});
-
-app.post("/oauth2/token", tokenRateLimit, async (c) => {
-  const auth = c.get("auth");
-  return auth.handler(c.req.raw);
-});
+app.route("/", authRouter);
+app.route("/", oauthRouter);
 
 app.route("/", health);
 
