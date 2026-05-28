@@ -8,8 +8,8 @@ type Props = {
 
 export const ResetPassword: FC<Props> = (props) => {
   return (
-    <Layout title="新しいパスワードを設定">
-      <h1 class="text-xl font-bold mb-6 text-center">新しいパスワードを設定</h1>
+    <Layout title="Paritto のパスワードをリセット">
+      <h1 class="text-xl font-bold mb-6 text-center">Paritto のパスワードをリセット</h1>
       {props.error && (
         <div class="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
           {props.error}

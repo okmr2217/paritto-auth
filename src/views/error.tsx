@@ -8,8 +8,8 @@ type Props = {
 
 export const ErrorView: FC<Props> = (props) => {
   return (
-    <Layout title="エラーが発生しました">
-      <h1 class="text-xl font-bold mb-4 text-center">エラーが発生しました</h1>
+    <Layout title="Paritto でエラーが発生しました">
+      <h1 class="text-xl font-bold mb-4 text-center">Paritto でエラーが発生しました</h1>
       <p class="text-sm text-gray-600 text-center mb-8">
         {props.message ??
           "予期しないエラーが発生しました。しばらく時間をおいてから再度お試しください。"}

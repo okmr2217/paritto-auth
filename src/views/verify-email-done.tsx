@@ -7,7 +7,7 @@ type Props = {
 
 export const VerifyEmailDone: FC<Props> = (props) => {
   return (
-    <Layout title="メールアドレスを確認しました">
+    <Layout title="Paritto のメール認証">
       <h1 class="text-xl font-bold mb-4 text-center">メールアドレスを確認しました</h1>
       <p class="text-sm text-gray-600 text-center mb-8">メールアドレスの確認が完了しました。</p>
       {props.continue ? (

@@ -3,7 +3,7 @@ import { Layout } from "./layout";
 
 export const ForgotPasswordSent: FC = () => {
   return (
-    <Layout title="メールを送信しました">
+    <Layout title="Paritto のパスワードをリセット">
       <h1 class="text-xl font-bold mb-4 text-center">メールを送信しました</h1>
       <p class="text-sm text-gray-600 text-center mb-2">
         パスワード再設定のリンクをメールに送信しました。

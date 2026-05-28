@@ -11,7 +11,7 @@ export const Layout: FC<Props> = ({ title, children }) => {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{title} | Paritto Auth</title>
+        <title>{title} | Paritto</title>
         {/* TODO: 本番前に CDN Tailwind をビルド済み CSS（wrangler assets 経由等）に差し替える。CSP 設定にも注意。 */}
         <script src="https://cdn.tailwindcss.com" />
       </head>

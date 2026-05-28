@@ -10,8 +10,8 @@ type Props = {
 export const Login: FC<Props> = (props) => {
   const continueParam = props.continue ? `?continue=${encodeURIComponent(props.continue)}` : "";
   return (
-    <Layout title="ログイン">
-      <h1 class="text-xl font-bold mb-6 text-center">ログイン</h1>
+    <Layout title="Paritto でログイン">
+      <h1 class="text-xl font-bold mb-6 text-center">Paritto でログイン</h1>
       {props.error && (
         <div class="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
           {props.error}
@@ -50,7 +50,7 @@ export const Login: FC<Props> = (props) => {
           type="submit"
           class="w-full py-2 px-4 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
         >
-          ログイン
+          Paritto でログイン
         </button>
       </form>
       <div class="mt-5 text-center space-y-2 text-sm text-gray-500">

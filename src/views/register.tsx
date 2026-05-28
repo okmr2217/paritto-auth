@@ -10,8 +10,8 @@ type Props = {
 export const Register: FC<Props> = (props) => {
   const continueParam = props.continue ? `?continue=${encodeURIComponent(props.continue)}` : "";
   return (
-    <Layout title="アカウント作成">
-      <h1 class="text-xl font-bold mb-6 text-center">アカウント作成</h1>
+    <Layout title="Paritto のアカウントを作成">
+      <h1 class="text-xl font-bold mb-6 text-center">Paritto のアカウントを作成</h1>
       {props.error && (
         <div class="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
           {props.error}

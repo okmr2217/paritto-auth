@@ -3,8 +3,8 @@ import { Layout } from "./layout";
 
 export const ResetPasswordDone: FC = () => {
   return (
-    <Layout title="パスワードを変更しました">
-      <h1 class="text-xl font-bold mb-4 text-center">パスワードを変更しました</h1>
+    <Layout title="Paritto のパスワードを変更しました">
+      <h1 class="text-xl font-bold mb-4 text-center">Paritto のパスワードを変更しました</h1>
       <p class="text-sm text-gray-600 text-center mb-8">新しいパスワードでログインしてください。</p>
       <a
         href="/login"

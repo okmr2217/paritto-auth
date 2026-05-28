@@ -9,8 +9,8 @@ type Props = {
 export const ForgotPassword: FC<Props> = (props) => {
   const continueParam = props.continue ? `?continue=${encodeURIComponent(props.continue)}` : "";
   return (
-    <Layout title="パスワードの再設定">
-      <h1 class="text-xl font-bold mb-4 text-center">パスワードの再設定</h1>
+    <Layout title="Paritto のパスワードをリセット">
+      <h1 class="text-xl font-bold mb-4 text-center">Paritto のパスワードをリセット</h1>
       <p class="text-sm text-gray-600 text-center mb-6">
         登録済みのメールアドレスを入力してください。パスワード再設定のリンクを送信します。
       </p>
